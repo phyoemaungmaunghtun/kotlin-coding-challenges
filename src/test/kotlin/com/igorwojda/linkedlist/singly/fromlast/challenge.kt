@@ -6,7 +6,14 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun fromLast(list: SinglyLinkedList<Char>, endIndex: Int): Node<Char>? {
-    TODO("not implemented")
+    var slow = list.first
+    var fast = list.first
+    repeat(endIndex){fast = fast?.next}
+    while (fast?.next != null){
+        slow = slow?.next
+        fast = fast?.next
+    }
+    return slow
 }
 
 private class Test {

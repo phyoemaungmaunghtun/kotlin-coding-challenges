@@ -4,7 +4,41 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun chunk(list: List<Int>, size: Int): List<List<Int>> {
-    TODO("not implemented")
+    return solution.s3(list,size)
+}
+
+object solution{
+    fun s1(list: List<Int>, size: Int):List<List<Int>>{
+        val chunk = mutableListOf<MutableList<Int>>()
+        list.forEach {
+            if(chunk.size == 0 || chunk.last().size == size){
+                chunk.add(mutableListOf(it))
+            }else{
+                chunk.last().add(it)
+            }
+        }
+        return chunk
+    }
+
+    fun s2(list: List<Int>, size:Int):List<List<Int>>{
+        val chunk = mutableListOf<List<Int>>()
+        for(i in 0..list.lastIndex step size){
+            val rightIndex = if((i+size) < list.size) size + i else list.size
+            chunk.add(list.subList(i,rightIndex))
+        }
+        return chunk
+    }
+
+    fun s3(list: List<Int>, size: Int):List<List<Int>>{
+        val chunk = mutableListOf<List<Int>>()
+        var index = 0
+        while (index <= list.lastIndex){
+            val rightIndex = if((index + size) < list.size) index + size else list.size
+            chunk.add(list.subList(index,rightIndex))
+            index += size
+        }
+        return chunk
+    }
 }
 
 private class Test {

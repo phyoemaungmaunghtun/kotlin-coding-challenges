@@ -21,4 +21,6 @@ tolerantPalindrome("abba") == true
 tolerantPalindrome("abb#a") == true
 
 tolerantPalindrome("abcdefg") == false
+
+tolerantPalindrome("a#bba")
 ```

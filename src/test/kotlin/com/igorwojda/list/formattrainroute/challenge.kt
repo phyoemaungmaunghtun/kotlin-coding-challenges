@@ -4,7 +4,15 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun formatTrainRoute(stations: List<String>): String {
-    TODO("not implemented")
+    val prefix = "Train is calling at "
+    if (stations.size == 1) {
+        return "$prefix${stations.first()}"
+    }
+    val lastStation = stations.takeLast(1).joinToString { it }
+
+    val followingStation = stations.dropLast(1).joinToString { it }
+
+    return "$prefix$followingStation and $lastStation"
 }
 
 private class Test {

@@ -55,6 +55,7 @@ private object Solution2 {
             return list
         }
 
+
         val pivot = list.first() // We selected first element as pivot (it can be any element)
         var pivotIndex = 0 // first index that we can swap (number of element that are less than pivot)
 

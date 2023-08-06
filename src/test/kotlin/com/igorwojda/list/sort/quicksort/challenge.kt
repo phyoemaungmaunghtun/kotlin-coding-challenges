@@ -4,7 +4,58 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun quickSort(list: MutableList<Int>, left: Int = 0, right: Int = list.lastIndex): List<Number> {
-    TODO("not implemented")
+    return solution.s2(list)
+}
+
+object solution{
+    fun s1(list: MutableList<Int>, left: Int = 0, right: Int = list.lastIndex):List<Number>{
+
+        fun swapPivot(list: MutableList<Int>, start:Int = 0, end : Int = list.lastIndex):Int{
+            var pivot = list[start]
+            var swapIndex = start
+            (start + 1..end).forEach {
+                if(pivot > list[it]){
+                    swapIndex++
+                    list.swap(it,swapIndex)
+                }
+            }
+            list.swap(start,swapIndex)
+            return swapIndex
+        }
+
+        if(left < right){
+            val pivot = swapPivot(list,left,right)
+
+            s1(list,left,pivot - 1)
+
+            s1(list,pivot + 1, right)
+
+
+        }
+        return list
+    }
+
+    fun s2(list: MutableList<Int>):List<Number>{
+        if(list.isEmpty()){
+            return list
+        }
+
+        var pivot = list.first()
+        var swapIndex = 0
+
+        (0..list.lastIndex).forEach {
+            if(pivot > list[it]){
+                list.swap(it,swapIndex + 1)
+                swapIndex++
+            }
+        }
+        list.swap(0,swapIndex)
+
+        val left = list.subList(0,swapIndex)
+        val right = list.subList(swapIndex + 1, list.size)
+
+        return s2(left) + listOf(pivot) + s2(right)
+    }
 }
 
 private fun <T> MutableList<T>.swap(index1: Int, index2: Int) {

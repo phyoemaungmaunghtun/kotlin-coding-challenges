@@ -4,8 +4,37 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun squareEquals(list: List<Int>, squared: List<Int>): Boolean {
-    TODO("not implemented")
+    return solution1.s2(list,squared)
 }
+
+object solution1{
+    fun s1(list: List<Int>, squared: List<Int>):Boolean{
+        if(list.size != squared.size)
+            return false
+        val frequency1 = list.map { it * it }.groupBy { it }
+        val frequency2 = squared.groupBy { it }
+
+        return frequency1 == frequency2
+    }
+
+    fun s2(list: List<Int>, squared: List<Int>):Boolean{
+        val sList = squared.toMutableList()
+        if(list.size != squared.size)
+            return false
+
+        list.forEach{i ->
+            val index = sList.indexOf(i * i)
+            if(index == -1){
+                return false
+            }
+            sList.removeAt(index)
+        }
+
+        return true
+    }
+}
+
+
 
 private class Test {
     @Test

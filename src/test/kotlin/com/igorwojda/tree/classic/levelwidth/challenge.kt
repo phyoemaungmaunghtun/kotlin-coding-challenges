@@ -4,7 +4,52 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun levelWidth(tree: Node): List<Int> {
-    TODO("not implemented")
+    return solution.s2(tree)
+}
+
+object solution{
+    fun s1(tree: Node):List<Int>{
+        val result = mutableListOf<Int>()
+        var nodes = mutableListOf<Node>(tree)
+        var levelCurrentNode = 0
+        var levelTotalNode = 1
+        var nextLevelTotalNode = 0
+        while (nodes.isNotEmpty()){
+            val node = nodes.removeAt(0)
+            levelCurrentNode++
+            nodes.addAll(node.children)
+            nextLevelTotalNode += node.children.size
+            if(levelTotalNode == levelCurrentNode){
+                result.add(levelTotalNode)
+                levelCurrentNode = 0
+                levelTotalNode = nextLevelTotalNode
+                nextLevelTotalNode = 0
+            }
+        }
+
+        return result
+    }
+
+    fun s2(tree: Node):List<Int>{
+        val counter = mutableListOf<Int>()
+        val nodes = mutableListOf<Node?>()
+        val rowSeparator = null
+        nodes.add(tree)
+        nodes.add(rowSeparator)
+        counter.add(0)
+
+        while (nodes.size >= 2){
+            val node = nodes.removeAt(0)
+            if(node == rowSeparator){
+                nodes.add(rowSeparator)
+                counter.add(0)
+            }else{
+                nodes.addAll(node.children)
+                counter[counter.lastIndex]++
+            }
+        }
+        return counter
+    }
 }
 
 private class Test {
@@ -75,7 +120,7 @@ private class Test {
     }
 }
 
-private class Node(val data: String, val children: MutableList<Node> = mutableListOf()) {
+class Node(val data: String, val children: MutableList<Node> = mutableListOf()) {
     fun add(data: String) {
         add(Node(data))
     }

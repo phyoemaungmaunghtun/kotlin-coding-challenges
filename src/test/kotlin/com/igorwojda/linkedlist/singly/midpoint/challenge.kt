@@ -6,7 +6,16 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun midpoint(list: SinglyLinkedList<Char>): Node<Char>? {
-    TODO("not implemented")
+    var slowPointer = list.first
+    var fastPointer = list.first
+    list.forEach {
+        if (fastPointer?.next?.next == null){
+            return slowPointer
+        }
+        slowPointer = slowPointer?.next
+        fastPointer = fastPointer?.next?.next
+    }
+   return null
 }
 
 private class Test {

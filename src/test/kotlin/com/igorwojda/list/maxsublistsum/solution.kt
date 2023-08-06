@@ -2,22 +2,30 @@ package com.igorwojda.list.maxsublistsum
 
 import kotlin.math.max
 
+fun main(array: Array<String>){
+    println(Solution1.maxSubListSum(listOf(4, 2, 7, 5, 8, 9, 5, 1), 3))
+}
+
 // Time Complexity: O(n)
 // Space Complexity: O(1)
 // Use "sliding window" - store sum in single variable and with each iteration add (current item)
 // and remove (first item before current sub-list)
-private object Solution1 {
-    private fun maxSubListSum(list: List<Int>, numElements: Int): Int? {
+ object Solution1 {
+    fun maxSubListSum(list: List<Int>, numElements: Int): Int? {
         if (list.size < numElements) {
             return null
         }
 
         var maxSum = list.take(numElements).sum()
+        println("MaxSum:$maxSum")
         var tempSum = maxSum
 
         (numElements..list.lastIndex).forEach { index ->
-            tempSum = tempSum - list[index - numElements] + list[index]
+            println("index valuer: ${list[index - numElements]} index: $index -> numElement: $numElements -> list[index] : ${list[index]}")
+            tempSum = tempSum - list[index - numElements] + list[index]// arithmetic operation do subsequently if they don't bound with ().
+            println("TempSum: $tempSum")
             maxSum = max(maxSum, tempSum)
+            println("Sum: $maxSum")
         }
 
         return maxSum
@@ -29,7 +37,7 @@ private object Solution2 {
         if (list.size < numElements) {
             return null
         }
-
+// (sum,max) is behave as accumulator, i is index and next is item value
         return list.foldIndexed(0 to 0) { i, (sum, max), next ->
             (sum + next - (list.getOrNull(i - numElements) ?: 0)).let {
                 it to if (it > max) it else max

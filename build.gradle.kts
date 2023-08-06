@@ -12,6 +12,7 @@ repositories {
 dependencies {
 	testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
 	testImplementation("org.amshove.kluent:kluent:1.65")
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 tasks.test {
@@ -27,4 +28,7 @@ tasks.test {
 
 tasks.withType<KotlinCompile>().configureEach {
 	kotlinOptions.jvmTarget = "1.8"
+}
+kotlin {
+    //jvmToolchain(11)
 }

@@ -7,20 +7,69 @@ private class MaxBinaryHeap<E : Comparable<E>> {
     val items = mutableListOf<E>()
 
     fun add(element: E) {
-        TODO("not implemented")
+        items.add(element)
+        bubbleUpLastLeaf()
     }
 
     fun removeMax(): E? {
-        TODO("not implemented")
+        if(isEmpty()){
+            return null
+        }
+        if(items.size == 1){
+            return items.removeAt(0)
+        }
+
+        items.swap(0,items.lastIndex)
+        val max = items.removeAt(items.lastIndex)
+        if(items.size > 1){
+            bubbleDownRootElement()
+        }
+        return max
     }
 
-    private fun getParentIndex(index: Int): Int = TODO("not implemented")
+    fun bubbleUpLastLeaf(){
+        var elementIndex = items.lastIndex
+        var parentIndex = getParentIndex(elementIndex)
+        while (items[elementIndex] > items[parentIndex]){
+            items.swap(elementIndex,parentIndex)
 
-    private fun getLeftChildIndex(index: Int): Int = TODO("not implemented")
+            elementIndex = parentIndex
+            parentIndex = getParentIndex(elementIndex)
+        }
+    }
 
-    private fun getRightChildIndex(index: Int): Int = TODO("not implemented")
+    fun bubbleDownRootElement(){
+        var elementIndex = 0
+        var leftChildIndex = getLeftChildIndex(elementIndex)
+        var rightChildIndex = getRightChildIndex(elementIndex)
 
-    fun isEmpty(): Boolean = TODO("not implemented")
+        if(items.getOrNull(rightChildIndex) == null){
+            if(items[elementIndex] < items[leftChildIndex]){
+                items.swap(elementIndex,leftChildIndex)
+            }
+            return
+        }
+        while (items[elementIndex] < items[leftChildIndex] || items[elementIndex] < items[rightChildIndex]){
+            elementIndex = if(rightChildIndex > items.lastIndex || items[leftChildIndex] > items[rightChildIndex]){
+                items.swap(leftChildIndex,elementIndex)
+                leftChildIndex
+            } else{
+                items.swap(rightChildIndex,elementIndex)
+                rightChildIndex
+            }
+            leftChildIndex = getLeftChildIndex(elementIndex)
+            rightChildIndex = getRightChildIndex(elementIndex)
+        }
+
+    }
+
+    private fun getParentIndex(index: Int): Int = (index - 1) / 2
+
+    private fun getLeftChildIndex(index: Int): Int = (index * 2) + 1
+
+    private fun getRightChildIndex(index: Int): Int = (index * 2) + 2
+
+    fun isEmpty(): Boolean = items.isEmpty()
 
     private fun <T> MutableList<T>.swap(index1: Int, index2: Int) {
         val tmp = this[index1]

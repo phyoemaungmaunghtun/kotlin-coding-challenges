@@ -6,11 +6,16 @@ import org.junit.jupiter.api.Timeout
 import java.util.concurrent.TimeUnit
 
 private fun fibonacciSequenceRecursiveCached(n: Int, methodCache: MutableList<MethodCache> = mutableListOf()): Int {
-    if (n < 2) {
-        return n
-    }
-
-    return fibonacciSequenceRecursiveCached(n - 1) + fibonacciSequenceRecursiveCached(n - 2)
+       var result = methodCache.firstOrNull{it.n == n}?.result
+       if(result == null){
+           if(n < 2){
+               methodCache.add(MethodCache(n,n))
+               return n
+           }
+           result = fibonacciSequenceRecursiveCached(n-1) + fibonacciSequenceRecursiveCached(n-2)
+           methodCache.add(MethodCache(n,result))
+       }
+    return result
 }
 
 private data class MethodCache(val n: Int, val result: Int)

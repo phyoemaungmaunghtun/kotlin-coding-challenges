@@ -4,7 +4,31 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun countUniqueValues(list: List<Int>): Int {
-    TODO("not implemented")
+    return solution.s4(list)
+}
+
+object solution{
+    fun s1(list: List<Int>):Int{
+        val map = mutableMapOf<Int,Int>()
+        list.forEach {
+            var value = map.getOrDefault(it,0)
+            value++
+            map[it] = value
+        }
+        return map.count()
+    }
+
+    fun s2(list: List<Int>):Int{
+        return list.toSet().size
+    }
+
+    fun s3(list:List<Int>):Int{
+        return list.distinct().size
+    }
+
+    fun s4(list: List<Int>):Int{
+       return list.groupBy { it }.size
+    }
 }
 
 private class Test {

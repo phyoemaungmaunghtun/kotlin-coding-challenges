@@ -1,5 +1,9 @@
 package com.igorwojda.string.isanagram
 
+
+fun main(array: Array<String>){
+    Solution3.isAnagram("Hellllooo","Heool")
+}
 private object Solution1 {
     private fun isAnagram(str1: String, str2: String): Boolean {
         val a1 = str1.toUpperCase().filter { it.isLetter() }.groupBy { it }
@@ -7,9 +11,9 @@ private object Solution1 {
         return a1 == a2
     }
 }
-
-private object Solution2 {
-    private fun isAnagram(str1: String, str2: String): Boolean {
+ object Solution2 {
+     fun isAnagram(str1: String, str2: String): Boolean {
+        getCharFrequency(str1).map { println("${it.key} ${it.value}") }
         return getCharFrequency(str1) == getCharFrequency(str2)
     }
 
@@ -19,13 +23,13 @@ private object Solution2 {
             .groupBy { it }
     }
 }
-
-private object Solution3 {
-    private fun isAnagram(str1: String, str2: String): Boolean {
+ object Solution3 {
+    fun isAnagram(str1: String, str2: String): Boolean {
+        Solution3.getCharFrequency(str1).map { println("${it.key} ${it.value}") }
         return getCharFrequency(str1) == getCharFrequency(str2)
     }
 
-    private fun getCharFrequency(str: String): Map<Char, Int> {
+     fun getCharFrequency(str: String): Map<Char, Int> {
         return str.toLowerCase()
             .filter { it.isLetterOrDigit() }
             .groupingBy { it }

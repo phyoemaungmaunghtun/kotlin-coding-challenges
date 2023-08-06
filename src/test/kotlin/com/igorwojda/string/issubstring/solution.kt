@@ -18,13 +18,15 @@ private object Solution2 {
 
         var pointer1 = 0
         var pointer2 = 0
+        var newSub = ""
 
         while (pointer1 <= str.lastIndex) {
             if (str[pointer1] == subStr[pointer2]) {
                 pointer2++
+                newSub+str[pointer1]
             }
 
-            if (pointer2 == subStr.length) {
+            if (pointer2 == subStr.length && subStr == newSub) {
                 return true
             }
 

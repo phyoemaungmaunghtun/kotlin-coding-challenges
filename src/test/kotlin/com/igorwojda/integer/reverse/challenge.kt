@@ -2,9 +2,11 @@ package com.igorwojda.integer.reverse
 
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
+import kotlin.math.sign
 
 private fun reverseInt(i: Int): Int {
-    TODO("not implemented")
+    val reversed = i.toString().removePrefix("-").reversed()
+    return reversed.toInt() * i.sign
 }
 
 private class Test {

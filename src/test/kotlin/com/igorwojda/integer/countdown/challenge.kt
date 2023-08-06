@@ -1,10 +1,37 @@
 package com.igorwojda.integer.countdown
 
+import com.igorwojda.integer.countdown.solution.s2
+import com.igorwojda.integer.countdown.solution.s3
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun countDown(n: Int): List<Int> {
-    TODO("not implemented")
+    return s2(n)
+}
+
+object solution{
+    fun s1(n: Int):List<Int>{
+        return (n downTo 0).toList()
+    }
+
+    fun s2(n: Int):List<Int>{
+       if(n == 0){
+           return listOf(0)
+       }
+        return mutableListOf(n).also { it.addAll(s2(n-1)) }
+    }
+
+    fun s3(n:Int):List<Int>{
+
+       fun helper(n:Int):MutableList<Int>{
+           if(n == 0){
+                return mutableListOf(0)
+           }
+           return mutableListOf(n).also { it.addAll(helper(n-1)) }
+       }
+
+        return helper(n).toList()
+    }
 }
 
 private class Test {

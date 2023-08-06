@@ -1,5 +1,8 @@
 package com.igorwojda.list.listchunk
 
+fun main(array: Array<String>){
+
+}
 private object Solution1 {
     private fun chunk(list: List<Int>, size: Int): List<List<Int>> {
         val chunks = mutableListOf<MutableList<Int>>()

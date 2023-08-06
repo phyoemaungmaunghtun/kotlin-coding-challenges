@@ -5,23 +5,35 @@ import org.junit.jupiter.api.Test
 
 private class Stack<E> {
     var size = 0
+    var first:Node<E>? = null
 
     fun add(element: E) {
-        TODO("not implemented")
+        val node = Node(element)
+        if(first == null){
+            first = node
+        }else{
+            node.next = first
+            first = node
+        }
+        size++
     }
 
     fun remove(): E? {
-        TODO("not implemented")
+        if(size == 0) return null
+        val node = first
+        first = first?.next
+        size--
+        return node?.data
     }
 
     fun peek(): E? {
-        TODO("not implemented")
+        return first?.data
     }
 
-    fun isEmpty(): Boolean {
-        TODO("not implemented")
-    }
+    fun isEmpty(): Boolean = first == null
 }
+
+data class Node<E>(val data: E, var next:Node<E>? = null)
 
 private class Test {
     @Test

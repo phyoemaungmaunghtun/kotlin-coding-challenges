@@ -2,9 +2,24 @@ package com.igorwojda.list.sort.selectionsort
 
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
+import kotlin.math.min
 
 private fun selectionSort(list: List<Int>): List<Number> {
-    return list
+    val sorted = list.toMutableList()
+    (0..sorted.lastIndex).forEach { i ->
+        var minIndex = i
+        (i + 1 ..sorted.lastIndex).forEach{ j ->
+            if(sorted[j] < sorted[minIndex]){
+                minIndex = j
+            }
+        }
+        if(minIndex != i){
+            val temp = sorted[i]
+            sorted[i] = sorted[minIndex]
+            sorted[minIndex] = temp
+        }
+    }
+    return sorted
 }
 
 private class Test {

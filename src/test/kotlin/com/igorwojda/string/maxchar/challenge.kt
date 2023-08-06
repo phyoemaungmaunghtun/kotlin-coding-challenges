@@ -4,7 +4,37 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun maxOccurrentChar(str: String): Char? {
-    TODO("not implemented")
+    return solution.s3(str)
+}
+
+object solution{
+    fun s1(str: String):Char?{
+        return str.toCharArray().groupBy { it }.maxByOrNull { it.value.size }?.key
+    }
+
+    fun s2(str: String):Char?{
+        return str.toList().groupingBy { it }.eachCount().maxBy { it.value }?.key
+    }
+
+    fun s3(str: String):Char?{
+        val map = mutableMapOf<Char,Int>()
+        str.forEach {
+            map[it] = (map[it] ?: 0) + 1
+        }
+        return map.maxBy { it.value }?.key
+    }
+
+    fun s4(str: String):Char?{
+        str.forEachIndexed { index, c ->
+            str.substring(index + 1).forEach {
+                if (c == it) {
+                    return it
+                }
+            }
+        }
+
+        return null
+    }
 }
 
 private class Test {

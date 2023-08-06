@@ -4,7 +4,34 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun isAnagram(str1: String, str2: String): Boolean {
-    TODO("not implemented")
+    return solution.s1(str1, str2)
+}
+
+object solution {
+    fun s1(str1: String, str2: String): Boolean {
+        val f1 = str1.toUpperCase().filter { it.isLetter() }.groupBy { it }
+        val f2 = str2.toUpperCase() .filter { it.isLetter() }.groupBy { it }
+        return f1 == f2
+    }
+
+    fun s2(str1: String, str2: String): Boolean {
+        return getFrequency(str1) == getFrequency(str2)
+    }
+
+    private fun getFrequency(str:String):Map<Char,List<Char>>{
+        return str.toLowerCase().filter { it.isLetterOrDigit() }.groupBy{ it }
+    }
+
+
+    fun s3(str1: String,str2: String):Boolean{
+        return getFrequencyChar(str1) == getFrequencyChar(str2)
+    }
+
+    private fun getFrequencyChar(str:String):Map<Char,Int>{
+        return str.toLowerCase().filter { it.isLetterOrDigit() }.groupingBy { it }.eachCount()
+    }
+
+
 }
 
 private class Test {

@@ -5,7 +5,15 @@ import org.junit.jupiter.api.Test
 
 
 private fun getCoins(amount: Int, coins: List<Int>): Int {
-    TODO("not implemented")
+    val waysOfCoin = IntArray(amount + 1)
+    waysOfCoin[0] = 1
+    for (coin in coins) {
+        for (higher in coin..amount) {
+            val remainAmount = higher - coin
+            waysOfCoin[higher] += waysOfCoin[remainAmount]
+        }
+    }
+    return waysOfCoin[amount]
 }
 
 private class Test {

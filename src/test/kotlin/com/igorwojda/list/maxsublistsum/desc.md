@@ -8,6 +8,8 @@ elements in the `list` (sum of `n` digits next to another that have the largest 
 
 You can use helper `max` function to deal with Kotlin nullability.
 
+--> This is my note -> nth means it start from 0 index and substract constantly one by one and add one by one to sum array
+
 [challenge](challenge.kt) | [solution](solution.kt)
 
 ## Examples

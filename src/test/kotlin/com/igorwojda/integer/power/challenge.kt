@@ -2,9 +2,24 @@ package com.igorwojda.integer.power
 
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
+import kotlin.math.pow
 
 private fun power(base: Int, exponent: Int): Int {
-    TODO("not implemented")
+    return solution.s1(base,exponent)
+}
+
+object solution{
+    fun s1(base: Int,exponent: Int):Int{
+        if(exponent == 1){
+            return base
+        }
+
+        return base * (s1(base, exponent - 1))
+    }
+
+    fun s2(base: Int,exponent: Int):Int{
+        return base.toDouble().pow(exponent).toInt()
+    }
 }
 
 private class Test {

@@ -72,11 +72,11 @@ object Solution1 {
             }
         }
 
-        private fun getParentIndex(index: Int) = (index - 1) / 2
+        private fun getParentIndex(index: Int) = (index - 1) / 2 // divided by 2 because it is double of heap need to reduce to upward
 
-        private fun getLeftChildIndex(index: Int) = (index * 2) + 1
+        private fun getLeftChildIndex(index: Int) = (index * 2) + 1 // multiplied by 2 and 1 for left because need to increase size of heap to downward
 
-        private fun getRightChildIndex(index: Int) = (index * 2) + 2
+        private fun getRightChildIndex(index: Int) = (index * 2) + 2 // multiplied by 2 and 2 for right because need to increase size of heap to downward
 
         fun isEmpty() = items.isEmpty()
 

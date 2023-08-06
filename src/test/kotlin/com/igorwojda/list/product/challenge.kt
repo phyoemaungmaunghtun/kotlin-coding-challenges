@@ -4,7 +4,30 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun product(list: List<Int>): Int {
-    TODO("not implemented")
+    return solution.s1(list)
+}
+
+object solution{
+    fun s1(list: List<Int>):Int{
+        return list.reduce { acc, current -> acc * current  }
+    }
+    fun s2(list:List<Int>):Int{
+        if(list.size == 1){
+            return list.first()
+        }
+
+        return list.first() * s2(list.drop(1))
+    }
+
+    fun s3(list:List<Int>):Int{
+        fun prod(acc:Int,list:List<Int>):Int{
+            if(list.isEmpty()){
+                return acc
+            }
+            return prod(acc * list.first(),list.drop(1))
+        }
+        return prod(1,list)
+    }
 }
 
 private class Test {

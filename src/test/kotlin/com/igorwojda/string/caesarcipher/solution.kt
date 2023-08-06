@@ -1,10 +1,15 @@
 package com.igorwojda.string.caesarcipher
 
-private object Solution1 {
-    private fun encodeCaesarCipher(str: String, shift: Int): String {
+fun main(array: Array<String>){
+    val str = Solution1.encodeCaesarCipher("abcdefghijklmnopqrstuvwxyz",3)
+    println(str)
+}
+object Solution1 {
+     fun encodeCaesarCipher(str: String, shift: Int): String {
         val aCode = 'a'.toInt()
         val zCode = 'z'.toInt()
         val realShift = shift % (zCode - aCode + 1)
+        println(realShift)
 
         return str.map {
             var code = it.toInt() // asci code

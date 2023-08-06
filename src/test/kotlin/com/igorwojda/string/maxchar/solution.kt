@@ -4,9 +4,9 @@ package com.igorwojda.string.maxchar
 private object Solution1 {
     private fun maxOccurrentChar(str: String): Char? {
         return str.toCharArray()
-            .groupBy { it }
-            .maxBy { it.value.size }
-            ?.key
+                .groupBy { it }
+                .maxByOrNull { it.value.size }
+                ?.key
     }
 }
 

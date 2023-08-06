@@ -4,7 +4,14 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun getSubtraction(list1: List<String>, list2: List<String>): List<String> {
-    TODO("not implemented")
+    val frequency1 = list1.groupingBy { it }.eachCount()
+    val frequency2 = list2.groupingBy { it }.eachCount()
+
+    val itemList1 = frequency1.flatMap { entry -> List(entry.value){entry.key} }.toMutableList()
+    val itemList2 = frequency2.flatMap { entry -> List(entry.value){entry.key} }
+
+    itemList2.forEach { itemList1.remove(it) }
+    return itemList1
 }
 
 private class Test {

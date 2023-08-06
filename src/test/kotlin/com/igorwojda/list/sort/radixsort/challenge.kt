@@ -4,16 +4,38 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun radixSort(list: List<Int>): List<Number> {
-    TODO("not implemented")
+     var tempList = list.toMutableList()
+     val maxDigit = maxDigits(list)
+
+    (0 until maxDigit).forEach { rightIndexDigit ->
+        val bucketList = mutableMapOf<Char,MutableList<Int>>()
+        ('0'..'9').forEach {
+            bucketList[it] = mutableListOf()
+        }
+        tempList.forEach { digit ->
+            val rightIndex = digit.getDigitAt(rightIndexDigit)
+            bucketList[rightIndex]?.add(digit)
+        }
+        tempList.clear()
+        ('0'..'9').forEach { digit ->
+            bucketList[digit]?.let { tempList.addAll(it) }
+        }
+    }
+    return tempList
 }
 
 private fun Int.getDigitAt(index: Int): Char {
-    return '0'
+    val str = this.toString()
+    val rightIndex = str.lastIndex - index
+    return str.getOrElse(rightIndex){'0'}
 }
 
-private val Int.digitCount get() = -1
+private val Int.digitCount get() = when{
+    this == 0 -> 1
+    else -> Math.log10(Math.abs(this.toDouble())).toInt() + 1
+}
 
-private fun maxDigits(list: List<Int>): Int = -1
+private fun maxDigits(list: List<Int>): Int = list.maxOfOrNull { it.digitCount } ?: 0
 
 private class Test {
     @Test

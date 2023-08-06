@@ -2,9 +2,12 @@ package com.igorwojda.string.ispalindrome.permutation
 
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
+import kotlin.math.sign
 
 private fun isPermutationPalindrome(str: String): Boolean {
-    TODO("not implemented")
+    var freqMap = str.groupingBy { it }.eachCount()
+    val count = freqMap.filter { (it.value % 2) == 1 }.count()
+    return count <= 1
 }
 
 private class Test {

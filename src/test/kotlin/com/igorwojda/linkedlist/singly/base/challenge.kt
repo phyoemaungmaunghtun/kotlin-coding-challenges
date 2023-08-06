@@ -1,7 +1,91 @@
 package com.igorwojda.linkedlist.singly.base
 
-private class SinglyLinkedList<E> {
-    // implement
+private class SinglyLinkedList<E>:Iterable<Node<E>> {
+    var head : Node<E>? = null
+    val first : Node<E>?
+        get() = getAt(0)
+    val last : Node<E>?
+        get() = getAt(size - 1)
+    val size : Int
+        get() {
+            var node = head
+            var count = 0
+            while (node != null){
+                count++
+                node = node.next
+            }
+            return count
+        }
+
+    fun setAt(data:E,index: Int){
+        getAt(index)?.data = data
+    }
+    fun getAt(index:Int):Node<E>?{
+        if(head == null){
+            return null
+        }
+        var node = head
+        var count = 0
+        while (node != null){
+            if(count == index){
+                return node
+            }
+            count++
+            node = node.next
+        }
+        return node
+    }
+
+    fun insertFirst(data:E){
+        insertAt(data,0)
+    }
+
+    fun insertLast(data: E){
+        insertAt(data,size)
+    }
+
+    fun insertAt(data:E,index:Int){
+        if(index == 0){
+            head = Node(data,head)
+        }else{
+           val preNode = getAt(index - 1) ?: last //return last for worst case scenario if index is more than list size
+            val node = preNode?.next
+            preNode?.next = Node(data,node)
+        }
+    }
+
+    fun removeAt(index: Int){
+        if(index == 0){
+            head = head?.next
+        }else{
+            val preNode = getAt(index - 1)
+            val nextNode = preNode?.next?.next
+            preNode?.next = nextNode
+        }
+    }
+
+    fun removeFirst(){
+        removeAt(0)
+    }
+    fun removeLast(){
+        removeAt(size - 1)
+    }
+
+    fun clear(){
+        head = null
+    }
+    override fun iterator() = object :Iterator<Node<E>>{
+        var node = head
+        override fun hasNext() = node != null
+
+        override fun next(): Node<E>{
+            var currentNode = node
+            node = node?.next
+            return currentNode!!
+        }
+
+    }
+
 }
 
 private data class Node<T>(

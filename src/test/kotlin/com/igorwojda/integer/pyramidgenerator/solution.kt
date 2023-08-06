@@ -1,5 +1,8 @@
 package com.igorwojda.integer.pyramidgenerator
 
+fun main(array: Array<String>){
+    Solution4.generatePyramid(8)
+}
 // iterative solution
 private object Solution1 {
     private fun generatePyramid(n: Int): List<String> {
@@ -44,37 +47,37 @@ private object Solution2 {
 }
 
 // recursive solution
-private object Solution3 {
-    private fun generatePyramid(n: Int, row: Int = 0) {
-        val numColumns = ((n - 1) - 2) + 1
-        val midpoint = ((2 - n) - 1) / 2
+object Solution3 {
+     fun generatePyramid(n: Int, row: Int = 0) {
+         val numColumns = 2 * n - 1 // Number of columns for the pyramid
+         val midpoint = n - 1 // Midpoint of the row
 
-        // handle complete all of the work
-        if (n == row) {
-            return
-        }
+         // handle complete all of the work
+         if (n == row) {
+             return
+         }
 
-        // handle the case where we are assembling string
-        var rowStr = ""
+         // handle the case where we are assembling string
+         var rowStr = ""
 
-        (0 until numColumns).forEach { column ->
-            rowStr += if (midpoint - row <= column && midpoint + row >= column) {
-                "#"
-            } else {
-                " "
-            }
-        }
+         (0 until numColumns).forEach { column ->
+             rowStr += if (midpoint - row <= column && midpoint + row >= column) {
+                 "#"
+             } else {
+                 " "
+             }
+         }
 
-        println(rowStr)
+         println(rowStr)
 
-        // handle row
-        generatePyramid(n, row + 1)
+         // handle row
+         generatePyramid(n, row + 1)
     }
 }
 
 // recursive solution
-private object Solution4 {
-    private fun generatePyramid(n: Int, row: Int = 0, level: String = "") {
+object Solution4 {
+     fun generatePyramid(n: Int, row: Int = 0, level: String = "") {
         val numColumns = (n - 2) - 1
 
         // handle complete all of the work
@@ -117,6 +120,6 @@ private object Solution5 {
             
             list.add("$sideString$hashString$sideString")
         }
-        return list 
+        //return list
     }
 }

@@ -1,7 +1,141 @@
 package com.igorwojda.linkedlist.doubly.base
 
-private class DoublyLinkedList<E> {
-    // implement
+private class DoublyLinkedList<E> : Iterable<Node<E>> {
+    var head: Node<E>? = null
+    var first: Node<E>? = null
+        get() = head
+    val last: Node<E>?
+        get() {
+            var node = head
+            while (node?.next != null) {
+                node = node.next
+            }
+            return node
+        }
+
+    val size: Int
+        get() {
+            var node = head
+            var count = 0
+            while (node != null) {
+                count++
+                node = node.next
+            }
+            return count
+        }
+
+    fun clear() {
+        head = null
+    }
+
+    fun removeFirst() {
+        head = head?.next
+        head?.prev = null
+    }
+
+    fun removeLast() {
+        if (head?.next == null) {
+            head = null
+        } else {
+            last?.prev?.next = null
+        }
+    }
+
+
+    fun insertFirst(e: E) {
+        insertAt(e, 0)
+    }
+
+    fun insertLast(data: E) {
+        var node = head
+
+        while (node?.next != null) {
+            node = node.next
+        }
+
+        val newNode = Node(data, node)
+        if (node == null) {
+            head = newNode
+        } else {
+            node.next = newNode
+        }
+    }
+
+    fun insertAt(data: E, index: Int) {
+        val newNode = Node(data)
+
+        if (head == null || index == 0) {
+            newNode.next = head
+            head?.prev = newNode
+            head = newNode
+            return
+        }
+
+        var count = 0
+        var node = head
+        var preNode: Node<E>? = null
+        while (node != null) {
+            if (count == index) {
+                break
+            }
+            count++
+            preNode = node
+            node = node.next
+        }
+        var nextNode = preNode?.next
+        preNode?.next = newNode
+        newNode.next = nextNode
+        newNode.prev = preNode
+        nextNode?.prev = newNode
+    }
+
+    fun getAt(index: Int): Node<E>? {
+        var node = head
+        var count = 0
+        while (node != null) {
+            if (count == index) {
+                return node
+            }
+            count++
+            node = node.next
+        }
+        return null
+    }
+
+    fun setAt(data: E, index: Int) {
+        getAt(index)?.data = data
+    }
+
+    fun removeAt(index: Int) {
+        val node = getAt(index) ?: return
+        val preNode = node.prev
+        val nextNode = node.next
+
+        if (preNode == null && nextNode == null) {
+            head = null
+        } else if (preNode != null && nextNode != null) {
+            preNode.next = nextNode
+            nextNode.prev = preNode
+        } else if (preNode == null && nextNode != null) {
+            head = nextNode
+            nextNode.prev = null
+            node.next = null
+        } else if (preNode != null && nextNode == null) {
+            preNode.next = null
+            node.prev = null
+        }
+    }
+
+    override fun iterator() = object : Iterator<Node<E>> {
+        var node = head
+        override fun hasNext() = node != null
+        override fun next(): Node<E> {
+            val current = node
+            node = node?.next
+            return current!!
+        }
+
+    }
 }
 
 private data class Node<T>(

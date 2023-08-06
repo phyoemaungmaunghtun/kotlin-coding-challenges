@@ -1,11 +1,28 @@
 package com.igorwojda.integer.countupanddown
 
+import com.igorwojda.integer.countupanddown.solution.s1
+import com.igorwojda.integer.countupanddown.solution.s2
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun countUpAndDown(n: Int): List<Int> {
-    TODO("not implemented")
+    return s2(n)
 }
+
+object solution{
+     fun s1(n:Int):List<Int> {
+         val size = (n * 2) + 1
+         return List(size){
+             when{
+                 it <= n -> it
+                 else  -> (n*2) - it
+             }
+         }
+     }
+    fun s2(n:Int):List<Int>{
+        return (0 until n) + (n downTo 0)
+    }
+    }
 
 private class Test {
     @Test

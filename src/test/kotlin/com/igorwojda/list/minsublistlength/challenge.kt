@@ -4,7 +4,47 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 fun minSubListLength(list: List<Int>, sum: Int): Int {
-    TODO("not implemented")
+    return solution.s1(list,sum)
+}
+
+object solution {
+    fun s1(list: List<Int>, sum: Int): Int {
+       var start = 0
+        var end = 0
+        var total = 0
+        var minLen:Int? = null
+        while (start < list.size){
+            if(total < sum && end < list.size){
+                total += list[end]
+                end++
+            }else if(total > sum){
+                minLen = min(minLen,end - start)
+                total -= list[start]
+                start++
+            }else{
+                break
+            }
+        }
+        return minLen ?: 0
+    }
+
+    fun s2(list: List<Int>, sum:Int):Int{
+        var minLen:Int? = null
+        repeat(list.size){index ->
+            var subItemSum = 0
+            var subItem = 0
+            var subList = list.subList(index,list.size)
+            for(item in subList){
+                subItemSum += item
+                subItem++
+                if(subItemSum > sum){
+                    minLen = min(minLen,subItem)
+                    break
+                }
+            }
+        }
+        return minLen ?: 0
+    }
 }
 
 private fun min(i1: Int?, i2: Int?): Int? {

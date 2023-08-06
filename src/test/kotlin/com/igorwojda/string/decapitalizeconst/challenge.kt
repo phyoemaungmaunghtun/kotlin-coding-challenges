@@ -3,8 +3,28 @@ package com.igorwojda.string.decapitalizeconst
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
-private fun decapitalizeConst(str: String): String {
-    TODO("not implemented")
+private fun decapitalizeConst(str: String): String? {
+    return solution.s2(str)
+}
+
+object solution{
+    fun s1(str: String):String{
+        val subsStringsList = str.split("_").map { it.toLowerCase().capitalize() }
+        return subsStringsList.joinToString("").decapitalize()
+    }
+    fun s2(str: String):String?{
+        val words = str.split("_").filter { it.isNotEmpty() }
+
+        if (words.size <= 1) return null
+
+        return words.mapIndexed { index, word ->
+            if (index == 0) {
+                word.toLowerCase()
+            } else {
+                word.first().toUpperCase() + word.drop(1).toLowerCase()
+            }
+        }.joinToString(separator = "")
+    }
 }
 
 private class Test {
