@@ -25,9 +25,13 @@ private object Solution2 {
     }
 }
 
+fun main(){
+    Solution3.generateSteps(6)
+}
+
 // recursive solution
 private object Solution3 {
-    private fun generateSteps(n: Int, row: Int = 0, stair: String = "") {
+     fun generateSteps(n: Int, row: Int = 0, stair: String = "") {
         // handle complete all of the work
         if (n == row) {
             return

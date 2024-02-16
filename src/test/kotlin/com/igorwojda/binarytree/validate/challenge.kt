@@ -4,20 +4,25 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun isValidSearchBinaryTree(node: Node<Int>,min: Int? = null, max:Int? = null): Boolean {
+
     if(min != null && node.data < min){
         return false
     }
+
     if(max != null && node.data > max){
         return false
     }
+
     val leftNode = node.left
-    if(leftNode?.data != null){
+    if(leftNode != null){
         return isValidSearchBinaryTree(leftNode,min,node.data)
     }
+
     val rightNode = node.right
-    if(rightNode?.data != null ){
+    if(rightNode != null){
         return isValidSearchBinaryTree(rightNode,node.data,max)
     }
+
     return true
 }
 

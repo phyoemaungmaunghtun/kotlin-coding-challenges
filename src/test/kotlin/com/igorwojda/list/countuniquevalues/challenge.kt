@@ -12,9 +12,10 @@ object solution{
         val map = mutableMapOf<Int,Int>()
         list.forEach {
             var value = map.getOrDefault(it,0)
-            value++
+            value += 1
             map[it] = value
         }
+
         return map.count()
     }
 
@@ -27,7 +28,7 @@ object solution{
     }
 
     fun s4(list: List<Int>):Int{
-       return list.groupBy { it }.size
+        return list.groupBy { it }.size
     }
 }
 

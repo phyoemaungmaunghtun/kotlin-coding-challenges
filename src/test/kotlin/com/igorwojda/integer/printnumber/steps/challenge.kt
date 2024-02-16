@@ -11,23 +11,28 @@ object solution{
     fun s1(n:Int,step: Int = 1):List<Int>{
         return (n downTo 1 step step).toList()
     }
-    fun s2(n: Int,step: Int = 1):List<Int> = when{
-        n <= 0 -> emptyList()
-        else -> listOf(n) + s2(n - step,step)
+    fun s2(n: Int,step: Int = 1):List<Int>{
+        fun helper(n:Int):List<Int> =
+        when{
+            n == 0 -> emptyList()
+            else -> listOf(n) + helper(n - step)
+        }
+        return helper(n)
     }
 
     fun s3(n: Int,step: Int = 1):List<Int>{
-       val result = mutableListOf<Int>()
+        val list = mutableListOf<Int>()
 
-        if(n <= 0){
+        if(n == 0){
             return emptyList()
         }else{
-            result.add(n)
+            list.add(n)
         }
 
-        result.addAll(s3(n - step, step))
+        list.addAll(s3(n - step,step))
 
-        return result
+        return list
+
     }
 }
 

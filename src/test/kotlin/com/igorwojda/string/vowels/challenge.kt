@@ -4,20 +4,20 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun vowels(str: String): Int {
-    return solution.s1(str)
+    return solution.s3(str)
 }
 
 object solution{
     fun s1(str: String):Int{
-       val vowel = listOf('a','e','i','o','u','y')
-        return str.count { it.toLowerCase() in vowel }
+       val vowels = listOf('a','e','i','o','u','y')
+        return str.count { it.toLowerCase() in vowels }
     }
 
     fun s2(str: String):Int{
-        val vowel = listOf('a','e','i','o','u','y')
+        val vowels = listOf('a','e','i','o','u','y')
         var count = 0
         str.forEach {
-            if(vowel.contains(it.toLowerCase())){
+            if(vowels.contains(it.toLowerCase())){
                 count++
             }
         }

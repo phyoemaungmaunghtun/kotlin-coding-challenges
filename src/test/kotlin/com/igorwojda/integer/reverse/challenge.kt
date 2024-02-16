@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test
 import kotlin.math.sign
 
 private fun reverseInt(i: Int): Int {
-    val reversed = i.toString().removePrefix("-").reversed()
-    return reversed.toInt() * i.sign
+   val reverse = i.toString().removePrefix("-").reversed()
+    return reverse.toInt() * i.sign
 }
 
 private class Test {

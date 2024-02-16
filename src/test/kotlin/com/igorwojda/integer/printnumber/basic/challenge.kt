@@ -9,23 +9,23 @@ private fun printNumber(n: Int): List<Int> {
 
 object solution{
     fun s1(n: Int):List<Int>{
-       return (n downTo 1).toList()
+        return (n downTo 1).toList()
     }
-    fun s2(n:Int):List<Int> = when(n){
-        0 -> emptyList()
-        else -> listOf(n) + s2(n - 1)
-    }
+    fun s2(n:Int):List<Int> =
+        when{
+            n == 0 -> emptyList()
+            else -> listOf(n) + s2(n-1)
+        }
 
     fun s3(n:Int):List<Int>{
-        val result = mutableListOf<Int>()
+        val list = mutableListOf<Int>()
         if(n == 0){
             return emptyList()
         }else{
-            result.add(n)
+            list.add(n)
         }
-
-        result.addAll(printNumber(n - 1))
-        return result
+        list.addAll(s3(n - 1))
+        return list
     }
 }
 

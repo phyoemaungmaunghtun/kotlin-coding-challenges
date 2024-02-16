@@ -1,22 +1,23 @@
 package com.igorwojda.string.caesarcipher
 
-fun main(array: Array<String>){
-    val str = Solution1.encodeCaesarCipher("abcdefghijklmnopqrstuvwxyz",3)
-    println(str)
+fun main(args: Array<String>) {
 }
+
 object Solution1 {
-     fun encodeCaesarCipher(str: String, shift: Int): String {
-        val aCode = 'a'.toInt()
-        val zCode = 'z'.toInt()
+    fun encodeCaesarCipher(str: String, shift: Int): String {
+        val aCode = 'a'.toInt()//97
+        val zCode = 'z'.toInt()//122
         val realShift = shift % (zCode - aCode + 1)
         println(realShift)
-
+        //118 V
+        //124 % 122 = 2 + 97 = 99 -> c
         return str.map {
             var code = it.toInt() // asci code
             code += realShift
 
             if (code > zCode) {
                 code = aCode + (code % zCode) - 1
+
             }
 
             code.toChar()

@@ -4,14 +4,13 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun mergeSort(list: List<Int>): List<Int> {
-    if(list.size <= 1){
-        return list
-    }
-
-    fun merge(left:MutableList<Int>,right:MutableList<Int>):List<Int>{
+   if(list.size <= 1){
+       return list
+   }
+    fun merge(left:MutableList<Int>, right:MutableList<Int>):List<Int>{
         val result = mutableListOf<Int>()
         while (left.isNotEmpty() && right.isNotEmpty()){
-            if(left.first() < right.first() ){
+            if(left.first() < right.first()){
                 result.add(left.removeAt(0))
             }else{
                 result.add(right.removeAt(0))
@@ -19,15 +18,13 @@ private fun mergeSort(list: List<Int>): List<Int> {
         }
         result.addAll(left)
         result.addAll(right)
-
         return result
     }
+    val midPoint = list.size / 2
+    val leftSplit = mergeSort(list.subList(0,midPoint)).toMutableList()
+    val rightSplit = mergeSort(list.subList(midPoint,list.size)).toMutableList()
 
-    val mid = list.size/2
-    val left = mergeSort(list.subList(0,mid)).toMutableList()
-    val right = mergeSort(list.subList(mid,list.size)).toMutableList()
-
-    return merge(left,right)
+    return merge(leftSplit,rightSplit)
 }
 
 private class Test {

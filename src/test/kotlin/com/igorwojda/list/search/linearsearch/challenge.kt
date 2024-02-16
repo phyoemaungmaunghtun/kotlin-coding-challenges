@@ -4,11 +4,12 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun getIndex(list: List<String>, str: String): Int {
-   list.forEachIndexed { index, value ->
-       if(value == str){
-           return index
-       }
-   }
+      list.forEachIndexed { index, item ->
+          if(item == str){
+              return index
+          }
+      }
+
     return -1
 }
 

@@ -13,19 +13,17 @@ object solution{
     }
 
     fun s2(list:List<String>):List<String>{
-       if(list.isEmpty()){
-           return emptyList()
-       }
-
-       return listOf(list.first().capitalize()) + s2(list.drop(1))
+        if(list.isEmpty()){
+            return emptyList()
+        }
+        return listOf(list.first() + s2(list.drop(1)))
     }
 
     fun s3(list: List<String>):List<String>{
-       if(list.size == 1){
-           return list.map { it.capitalize() }
-       }
-
-        return list.take(1).map { it.capitalize() } + s3(list.drop(1))
+        if(list.size == 1){
+            return list.take(1).map{ it.capitalize()}
+        }
+        return list.take(1).map { it.capitalize() + s3(list.drop(1)) }
     }
 }
 

@@ -29,7 +29,7 @@ private object Solution3 {
                 return mutableListOf(0)
             }
 
-            return mutableListOf(n).also { it.addAll(countDown(n - 1)) }
+            return mutableListOf(n).also { it.addAll(helper(n - 1)) }
         }
 
         return helper(n).toList()

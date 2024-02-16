@@ -2,30 +2,30 @@ package com.igorwojda.string.ispalindrome.tolerant
 
 // iterative solution
 private object Solution1 {
-    private fun isTolerantPalindrome(str: String): Boolean {
-        var characterRemoved = false
-
-        str.forEachIndexed { index, c ->
-            var lastIndex = str.lastIndex - index
-
-            if (characterRemoved) {
-                lastIndex--
+    fun isTolerantPalindrome(s: String): Boolean {
+        var i = 0
+        var j = s.lastIndex
+        while (i < j) {
+            if (s[i] != s[j]) {
+                return isPalindrome(s, i + 1, j) || isPalindrome(s, i, j - 1)
             }
-
-            if (index >= lastIndex) {
-                return true
-            }
-
-            if (c != str[lastIndex]) {
-                if (characterRemoved) {
-                    return false
-                } else {
-                    characterRemoved = true
-                }
-            }
+            i++
+            j--
         }
+        return true
+    }
 
-        return false
+    fun isPalindrome(s: String, i: Int, j: Int): Boolean {
+        var start = i
+        var end = j
+        while (start < end) {
+            if (s[start] != s[end]) {
+                return false
+            }
+            start++
+            end--
+        }
+        return true
     }
 }
 // recursive solution
@@ -43,21 +43,16 @@ private object Solution2 {
                 if (characterRemoved) {
                     false
                 } else {
-                    if (str.length == 2) {
-                        return true
-                    }
-
-                    println(str)
                     val removeLeftResult = isTolerantPalindrome(
-                        str.substring(2 until str.lastIndex),
+                        str.substring(1 until str.lastIndex + 1),
                         true
                     )
                     val removeRightResult = isTolerantPalindrome(
-                        str.substring(1 until str.lastIndex - 1),
+                        str.substring(0 until str.lastIndex),
                         true
                     )
 
-                    return removeLeftResult || removeRightResult
+                    removeLeftResult || removeRightResult
                 }
             }
         }
@@ -66,15 +61,21 @@ private object Solution2 {
 
 // recursive solution 2
 private object Solution3 {
-    private fun isTolerantPalindrome(str: String, characterRemoved: Boolean = false): Boolean {
-        val revStr = str.reversed()
-        if (revStr == str) return true
-        if (characterRemoved) return false
+private fun isTolerantPalindrome(str: String, characterRemoved: Boolean = false): Boolean {
+    val revStr = str.reversed()
+    if (revStr == str) return true
+    if (characterRemoved) return false
 
-        // Remove a single non matching character and re-compare
-        val removeIndex = str.commonPrefixWith(revStr).length
-        if (removeIndex + 1 > str.length) return false // reached end of string
-        val reducedStr = str.removeRange(removeIndex, removeIndex + 1)
-        return isTolerantPalindrome(reducedStr, true)
-    }
+    // Remove a single non matching character and re-compare
+    val removeIndex = str.commonPrefixWith(revStr).length
+    if (removeIndex + 1 > str.length) return false // reached end of string
+
+    // Try removing a character from the start of the string
+    val reducedStrStart = str.removeRange(removeIndex, removeIndex + 1)
+    if (isTolerantPalindrome(reducedStrStart, true)) return true
+
+    // Try removing a character from the end of the string
+    val reducedStrEnd = str.removeRange(str.lastIndex - removeIndex, str.lastIndex - removeIndex + 1)
+    return isTolerantPalindrome(reducedStrEnd, true)
+}
 }

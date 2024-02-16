@@ -4,10 +4,24 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private class Stack<E> {
-    var size = 0
-    var first:Node<E>? = null
+    /*val list = mutableListOf<E>()
+    fun add(data: E) {
+        list.add(data)
+    }
 
-    fun add(element: E) {
+    fun remove() = if(list.isEmpty()) null else list.removeAt(list.lastIndex)
+
+    fun peek(): E? = list.lastOrNull()
+
+    fun isEmpty() = list.isEmpty()
+
+    val size get() = list.size*/
+
+    var first: Node<E>? = null
+    var size = 0
+        private set
+
+    fun add(element:E){
         val node = Node(element)
         if(first == null){
             first = node
@@ -18,22 +32,20 @@ private class Stack<E> {
         size++
     }
 
-    fun remove(): E? {
-        if(size == 0) return null
+    fun remove():E?{
+        if (size == 0) return null
         val node = first
         first = first?.next
         size--
         return node?.data
     }
 
-    fun peek(): E? {
-        return first?.data
-    }
+    fun isEmpty() = first == null
 
-    fun isEmpty(): Boolean = first == null
+    fun peek():E? =  first?.data
 }
 
-data class Node<E>(val data: E, var next:Node<E>? = null)
+data class Node<E>(val data: E, var next: Node<E>? = null)
 
 private class Test {
     @Test

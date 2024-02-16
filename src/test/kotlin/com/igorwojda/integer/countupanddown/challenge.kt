@@ -11,16 +11,16 @@ private fun countUpAndDown(n: Int): List<Int> {
 
 object solution{
      fun s1(n:Int):List<Int> {
-         val size = (n * 2) + 1
-         return List(size){
-             when{
-                 it <= n -> it
-                 else  -> (n*2) - it
-             }
-         }
+        val size = (n * 2) + 1
+        return List(size){
+            when{
+                it <= n -> it
+                else -> (n * 2) - it
+            }
+        }
      }
     fun s2(n:Int):List<Int>{
-        return (0 until n) + (n downTo 0)
+       return (0 until n)+(n downTo 0)
     }
     }
 

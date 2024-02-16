@@ -1,36 +1,30 @@
 package com.igorwojda.queue.basic
 
-import com.igorwojda.linkedlist.singly.base.Solution1
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private class Queue<E> {
+    val list = mutableListOf<E>()
 
-    /*val list = mutableListOf<E>()
-
-    fun add(data:E){
-        list.add(data)
+    fun add(element: E){
+        list.add(element)
     }
 
-    fun remove(){
-        list.removeAt(0)
-    }
-
-    fun peek():E?{
-        return list.firstOrNull()
-    }
+    fun remove() = if(list.isEmpty()) null else list.removeAt(0)
 
     fun isEmpty() = list.isEmpty()
 
-    val size get() = list.size*/
+    val size get() = list.size
+
+    fun peek() = list.firstOrNull()
+
+    /*var first: Node<E>? = null
+    var last: Node<E>? = null
     var size = 0
         private set
 
-    var first: Node<E>? = null
-    var last: Node<E>? = null
-
-    fun add(element: E) {
-        val node = Node(element)
+    fun add(data: E) {
+        val node = Node(data)
         if (first == null) {
             first = node
         } else {
@@ -41,21 +35,26 @@ private class Queue<E> {
     }
 
     fun remove(): E? {
-        if(size == 0){
-            return null;
-        }
+        if (first == null) return null
         val node = first
         first = first?.next
+        if (first == null) {
+            last = null
+        }
         size--
-        return node?.data
+        return node!!.data
     }
 
-    fun peek(): E? = first?.data
+    fun peek(): E? {
+        return if (first == null)  null else  first!!.data
+    }
 
-    fun isEmpty(): Boolean = first == null
+    fun isEmpty() = first == null*/
+
+
 }
 
-private data class Node<E>(val data: E, var next:Node<E>? = null)
+private data class Node<E>(val data: E, var next: Node<E>? = null)
 
 private class Test {
     @Test

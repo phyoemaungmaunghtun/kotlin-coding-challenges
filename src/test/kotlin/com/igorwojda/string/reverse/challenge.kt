@@ -4,7 +4,7 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun reverse(str: String): String {
-    return solution.s1(str)
+    return solution.s5(str)
 
 }
 
@@ -14,36 +14,38 @@ object solution {
     }
 
     fun s2(str: String): String {
-       var reversed = ""
+        var reverse = ""
         str.forEach {
-            reversed = it + reversed
+            reverse = it + reverse
         }
-        return reversed
+        return reverse
     }
 
     fun s3(str: String):String{
-       if(str.length == 1){
-           return str
-       }
-        return s3(str.drop(1) ) + str.first()
+        if(str.isEmpty()){
+            return str
+        }
+
+        return s3(str.drop(1)) + str.first()
     }
 
     fun s4(str: String):String{
-        val list = str.toMutableList()
-        var leftIndex = 0
-        var rightIndex = list.lastIndex
-        while (leftIndex <= rightIndex){
-            val temp = list[leftIndex]
-            list[leftIndex] = list[rightIndex]
-            list[rightIndex] = temp
-            leftIndex++
-            rightIndex--
-        }
-        return  list.joinToString (transform = {it.toString()}, separator = "" )
+        return str.foldRight(""){char,reverse -> reverse + char}
     }
 
     fun s5(str: String):String{
-       return str.foldRight(""){c: Char, reverse: String ->  reverse + c}
+        val chars = str.toMutableList()
+       var leftIndex = 0
+        var rightIndex = str.lastIndex
+
+        while (leftIndex <= rightIndex){
+            val temp = str[leftIndex]
+            chars[leftIndex] = str[rightIndex]
+            chars[rightIndex] = temp
+            rightIndex--
+            leftIndex++
+        }
+        return chars.joinToString(transform = {it.toString()}, separator = "")
     }
 }
 

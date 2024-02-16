@@ -9,24 +9,23 @@ private fun product(list: List<Int>): Int {
 
 object solution{
     fun s1(list: List<Int>):Int{
-        return list.reduce { acc, current -> acc * current  }
+        return list.reduce{acc, i -> acc * i }
     }
     fun s2(list:List<Int>):Int{
-        if(list.size == 1){
-            return list.first()
-        }
-
+       if(list.size == 1){
+           return list.first()
+       }
         return list.first() * s2(list.drop(1))
     }
 
     fun s3(list:List<Int>):Int{
-        fun prod(acc:Int,list:List<Int>):Int{
-            if(list.isEmpty()){
-                return acc
-            }
-            return prod(acc * list.first(),list.drop(1))
-        }
-        return prod(1,list)
+       fun helper(acc:Int,list:List<Int>):Int{
+           if(list.size == 1){
+               return list.first()
+           }
+           return helper(acc * list.first(),list.drop(1))
+       }
+        return helper(acc = 1, list)
     }
 }
 

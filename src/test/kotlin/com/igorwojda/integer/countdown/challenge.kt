@@ -15,21 +15,21 @@ object solution{
     }
 
     fun s2(n: Int):List<Int>{
-       if(n == 0){
-           return listOf(0)
-       }
-        return mutableListOf(n).also { it.addAll(s2(n-1)) }
+        if(n == 0){
+            return listOf(0)
+        }
+
+        return mutableListOf(n).also { it.addAll(s2(n - 1)) }
     }
 
     fun s3(n:Int):List<Int>{
 
-       fun helper(n:Int):MutableList<Int>{
-           if(n == 0){
-                return mutableListOf(0)
-           }
-           return mutableListOf(n).also { it.addAll(helper(n-1)) }
-       }
-
+        fun helper(i:Int):List<Int>{
+            if(i == 0){
+                return listOf(0)
+            }
+            return mutableListOf(i).also { it.addAll(helper(i - 1)) }
+        }
         return helper(n).toList()
     }
 }

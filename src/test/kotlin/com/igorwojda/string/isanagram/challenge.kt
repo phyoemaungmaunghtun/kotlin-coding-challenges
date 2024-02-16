@@ -9,9 +9,9 @@ private fun isAnagram(str1: String, str2: String): Boolean {
 
 object solution {
     fun s1(str1: String, str2: String): Boolean {
-        val f1 = str1.toUpperCase().filter { it.isLetter() }.groupBy { it }
-        val f2 = str2.toUpperCase() .filter { it.isLetter() }.groupBy { it }
-        return f1 == f2
+        val firstString = str1.toUpperCase().filter { it.isLetterOrDigit() }.groupBy { it }
+        val secondString = str2.toUpperCase().filter { it.isLetterOrDigit() }.groupBy { it }
+        return firstString == secondString
     }
 
     fun s2(str1: String, str2: String): Boolean {
@@ -19,7 +19,7 @@ object solution {
     }
 
     private fun getFrequency(str:String):Map<Char,List<Char>>{
-        return str.toLowerCase().filter { it.isLetterOrDigit() }.groupBy{ it }
+        return str.toLowerCase().filter { it.isLetterOrDigit() }.groupBy { it }
     }
 
 

@@ -13,8 +13,7 @@ object solution{
         if(exponent == 1){
             return base
         }
-
-        return base * (s1(base, exponent - 1))
+        return base * s1(base,exponent - 1)
     }
 
     fun s2(base: Int,exponent: Int):Int{

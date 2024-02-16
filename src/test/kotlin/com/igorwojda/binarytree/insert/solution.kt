@@ -7,7 +7,9 @@ private object Solution1 {
         var right: Node<E>? = null
     ) {
         fun insert(e: E) {
-            if (e < data) { // left node
+            if(e == data){ //when they are same
+                return
+            }else if (e < data) { // left node
                 if (left == null) {
                     left = Node(e)
                 } else {

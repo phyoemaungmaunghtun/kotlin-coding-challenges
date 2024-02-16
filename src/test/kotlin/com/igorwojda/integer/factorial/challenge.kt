@@ -10,34 +10,34 @@ private fun factorial(n: Int): Int {
 
 object solution{
     fun s1(n:Int):Int{
-       var total = 1
+        var total = 1
+
         (1..n).forEach {
-            total *= it
+            total*= it
         }
+
         return total
+
     }
 
-    fun s2(n:Int):Int=
-        when {
-            n <= 0 -> 1
-            else ->(n downTo 1).reduce { acc, i -> acc * i }
-        }
+    fun s2(n:Int):Int= when(n){
+        0 -> 1
+        else -> (n downTo 1).reduce { acc, i -> acc * i }
+    }
 
-    fun s3(n:Int):Int = when{
-        n <= 0 -> 1
-        else -> n * s3(n - 1)
+    fun s3(n:Int):Int = when(n){
+        0,1 -> 1
+        else -> n * s3(n-1)
     }
 
 
     fun s4(n:Int):Int{
-       fun fact(n:Int, acc:Int = 1):Int=
-           when{
-               n <= 0 -> acc
-               else ->  fact(n - 1, acc * n)
-           }
+       fun helper(n:Int):Int = when(n){
+           0,1 -> 1
+           else -> n * helper(n -1)
+       }
 
-        return fact(n)
-
+        return helper(n)
     }
 
 }

@@ -4,84 +4,69 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun isTolerantPalindrome(str: String, characterRemoved: Boolean = false): Boolean {
-    return solution.s3(str)
+    return solution.s1(str)
 }
 
 object solution {
-    fun s1(str: String): Boolean {
-        var characterRemoved = false
 
-        str.forEachIndexed { index, c ->
-            var lastIndex = str.lastIndex - index
-
-            if (characterRemoved) {
-                lastIndex--
+    fun s1(s: String): Boolean {
+        var i = 0
+        var j = s.lastIndex
+        while (i < j){
+            if(s[i] != s[j]){
+                return isPalindrome(s,i+1,j) || isPalindrome(s, i, j-1)
             }
-
-            if (index >= lastIndex) {
-                return true
-            }
-
-            if (c != str[lastIndex]) {
-                if (characterRemoved) {
-                    return false
-                } else {
-                    characterRemoved = true
-                }
-            }
+            i++
+            j--
         }
+        return true
+    }
 
-        return false
-        /*var removeCharacter = false
-        str.forEachIndexed { index, char ->
-            var lastIndex = str.lastIndex - index
-
-            if(removeCharacter){
-                lastIndex--
+    fun isPalindrome(s: String, i: Int, j: Int): Boolean {
+        var start = i
+        var end = j
+        while (start < end){
+            if(s[start] != s[end]){
+                return false
             }
-
-            if(index >= lastIndex){
-                return true
-            }
-
-            if(char != str[lastIndex]){
-                if(removeCharacter){
-                    return false
-                }else{
-                    removeCharacter = true
-                }
-            }
+            start++
+            end--
         }
-        return false*/
-
+        return true
     }
 
     fun s2(str: String, characterRemoved: Boolean = false): Boolean {
-        return if (str.isEmpty() || str.length == 1) {
+        return if(str.isEmpty() || str.length == 1){
             return true
-        } else {
-            if (str.first() == str.last()) {
-                s2(str.substring(1 until str.lastIndex), characterRemoved)
-            } else {
-                if (characterRemoved) {
-                    return false
-                } else {
-                    if (str.length == 2) return true
-                    val leftRemove = s2(str.substring(2 until str.lastIndex), true)
-                    val rightRemove = s2(str.substring(1 until str.lastIndex - 1), true)
-                    return leftRemove || rightRemove
+        }else{
+            if(str.first() == str.last()){
+                s2(str.substring(1 until str.lastIndex),characterRemoved)
+            }else{
+                if(characterRemoved){
+                    false
+                }else{
+                    val reduceStart = s2(str.substring(1 until str.lastIndex + 1),true)
+
+                    val reduceEnd = s2(str.substring(0 until str.lastIndex),true)
+
+                    return reduceStart || reduceEnd
                 }
             }
         }
     }
 
     fun s3(str: String, characterRemoved: Boolean = false): Boolean {
-       val revStr = str.reversed()
-        if(revStr == str) return true
+        val reverseStr = str.reversed()
+        if(str == reverseStr) return true
         if(characterRemoved) return false
-        val removeIndex = str.commonPrefixWith(revStr).length
-        if(removeIndex + 1 > str.lastIndex) return false
-        return s3(str.removeRange(removeIndex,removeIndex+1),true)
+
+        val removeIndex = str.commonPrefixWith(reverseStr).length
+        if(removeIndex + 1 > str.length) return false
+        val removeStart = str.removeRange(removeIndex,removeIndex+1)
+        if(s3(removeStart,true)) return true
+
+        val removeLast = str.removeRange(str.lastIndex - removeIndex, str.length - (removeIndex + 1))
+        return s3(removeLast,true)
     }
 }
 

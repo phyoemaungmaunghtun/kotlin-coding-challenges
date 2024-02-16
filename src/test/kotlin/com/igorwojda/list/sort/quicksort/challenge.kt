@@ -9,11 +9,10 @@ private fun quickSort(list: MutableList<Int>, left: Int = 0, right: Int = list.l
 
 object solution{
     fun s1(list: MutableList<Int>, left: Int = 0, right: Int = list.lastIndex):List<Number>{
-
-        fun swapPivot(list: MutableList<Int>, start:Int = 0, end : Int = list.lastIndex):Int{
-            var pivot = list[start]
+        fun pivot(list: MutableList<Int>, start: Int = 0, end: Int = list.lastIndex):Int{
+            val pivot = list[start]
             var swapIndex = start
-            (start + 1..end).forEach {
+            (start+1..end).forEach {
                 if(pivot > list[it]){
                     swapIndex++
                     list.swap(it,swapIndex)
@@ -24,14 +23,11 @@ object solution{
         }
 
         if(left < right){
-            val pivot = swapPivot(list,left,right)
-
-            s1(list,left,pivot - 1)
-
-            s1(list,pivot + 1, right)
-
-
+            val pivot = pivot(list,left,right)
+            s1(list,left,pivot-1)
+            s1(list,pivot + 1,right)
         }
+
         return list
     }
 
@@ -39,22 +35,23 @@ object solution{
         if(list.isEmpty()){
             return list
         }
-
-        var pivot = list.first()
-        var swapIndex = 0
+        val pivot = list.first()
+        var index = 0
 
         (0..list.lastIndex).forEach {
             if(pivot > list[it]){
-                list.swap(it,swapIndex + 1)
-                swapIndex++
+                list.swap(index+1,it)
+                index++
             }
         }
-        list.swap(0,swapIndex)
 
-        val left = list.subList(0,swapIndex)
-        val right = list.subList(swapIndex + 1, list.size)
+        list.swap(0,index)
+
+        val left = list.subList(0,index)
+        val right = list.subList(index+1,list.size)
 
         return s2(left) + listOf(pivot) + s2(right)
+
     }
 }
 

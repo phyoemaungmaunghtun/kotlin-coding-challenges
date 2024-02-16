@@ -9,16 +9,15 @@ private fun hasRepeatedChar(str: String): Boolean {
 
 object solution{
     fun s1(str: String):Boolean{
-        val count = str.groupingBy { it }.eachCount()
-        return count.any{it.value > 1}
+      val fren = str.groupingBy { it }.eachCount()
+        return fren.any{it.value > 1}
     }
 
     fun s2(str: String):Boolean{
-        val frequency = str.groupingBy { it }.eachCount()
-        frequency.forEach{
-            if(it.value > 1){
+        val fren = str.groupingBy { it }.eachCount()
+        fren.forEach {
+            if(it.value > 1)
                 return true
-            }
         }
         return false
     }

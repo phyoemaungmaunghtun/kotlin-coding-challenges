@@ -7,58 +7,63 @@ private class BinarySearchTree<E : Comparable<E>> {
     var root: BinaryNode<E>? = null
         private set
 
-    fun add(element: E) {
-       val newNode = BinaryNode(element)
+     fun add(element:E){
+        val newNode = BinaryNode(element)
         if(root == null){
             root = newNode
             return
         }
-        var current: BinaryNode<E>? = root ?: return
+
+        var current: BinaryNode<E> = root ?: return
 
         while (true){
             when{
-                current?.data == element -> return
-                element < current?.data!! -> {
+                element == current.data -> return
+                element < current.data -> {
                     if(current.left == null){
                         current.left = newNode
-                        return
                     }
-                    current.left.let { current = it }
+                    current.left?.let { current = it }
                 }
-                element > current?.data!! -> {
-                    if(current?.right == null){
-                        current?.right = newNode
+                element > current.data -> {
+                    if(current.right == null){
+                        current.right = newNode
                         return
                     }
-                    current?.right.let { current = it }
+                    current.right?.let { current = it }
                 }
             }
         }
-
     }
 
-    fun contains(element: E): Boolean {
-        var current = root
+     fun contains(element: E):Boolean{
+        var current: BinaryNode<E>? = root
         while (true){
             when{
-                current?.data == null -> break
+                current == null -> break
                 current.data == element -> return true
-                current.data > element -> current = current.left
-                current.data < element -> current = current.right
+                element < current.data -> {
+                    current = current.left
+                }
+                element > current.data -> {
+                    current = current.right
+                }
             }
         }
-
         return false
     }
 
     fun isEmpty() = root == null
+
+
 }
 
-private data class BinaryNode<E : Comparable<E>>(
+private data class BinaryNode<E:Comparable<E>>(
     val data: E,
-    var left: BinaryNode<E>? = null,
-    var right: BinaryNode<E>? = null
+    var left:BinaryNode<E>? = null,
+    var right:BinaryNode<E>? = null
 )
+
 
 private class Test {
     @Test

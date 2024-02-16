@@ -3,74 +3,64 @@ package com.igorwojda.tree.heap.maxbinaryheap
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
-private class MaxBinaryHeap<E : Comparable<E>> {
+private class MaxBinaryHeap<E:Comparable<E>>{
     val items = mutableListOf<E>()
-
-    fun add(element: E) {
+    fun add(element:E){
         items.add(element)
-        bubbleUpLastLeaf()
+        bubbleUpLastLeave()
     }
 
-    fun removeMax(): E? {
-        if(isEmpty()){
-            return null
-        }
-        if(items.size == 1){
-            return items.removeAt(0)
-        }
-
+    fun removeMax(): E?{
         items.swap(0,items.lastIndex)
-        val max = items.removeAt(items.lastIndex)
-        if(items.size > 1){
-            bubbleDownRootElement()
-        }
-        return max
+        val removeItem =items.removeAt(items.lastIndex)
+        if(items.size > 1)
+        bubbleDownLast()
+        return removeItem
     }
 
-    fun bubbleUpLastLeaf(){
+    private fun bubbleUpLastLeave(){
         var elementIndex = items.lastIndex
         var parentIndex = getParentIndex(elementIndex)
+
         while (items[elementIndex] > items[parentIndex]){
-            items.swap(elementIndex,parentIndex)
+            items.swap(parentIndex,elementIndex)
 
             elementIndex = parentIndex
             parentIndex = getParentIndex(elementIndex)
         }
     }
 
-    fun bubbleDownRootElement(){
-        var elementIndex = 0
-        var leftChildIndex = getLeftChildIndex(elementIndex)
-        var rightChildIndex = getRightChildIndex(elementIndex)
+    private fun bubbleDownLast(){
+        var parentIndex = 0
+        var leftIndex = getLeftChildIndex(parentIndex)
+        var rightIndex = getRightChildIndex(parentIndex)
 
-        if(items.getOrNull(rightChildIndex) == null){
-            if(items[elementIndex] < items[leftChildIndex]){
-                items.swap(elementIndex,leftChildIndex)
-            }
+        if(items.getOrNull(rightIndex) == null){
+            if(items[parentIndex] < items[leftIndex])
+            items.swap(leftIndex,parentIndex)
             return
         }
-        while (items[elementIndex] < items[leftChildIndex] || items[elementIndex] < items[rightChildIndex]){
-            elementIndex = if(rightChildIndex > items.lastIndex || items[leftChildIndex] > items[rightChildIndex]){
-                items.swap(leftChildIndex,elementIndex)
-                leftChildIndex
-            } else{
-                items.swap(rightChildIndex,elementIndex)
-                rightChildIndex
-            }
-            leftChildIndex = getLeftChildIndex(elementIndex)
-            rightChildIndex = getRightChildIndex(elementIndex)
-        }
 
+        while (items[parentIndex] < items[leftIndex] || items[parentIndex] < items[rightIndex]){
+            parentIndex = if(rightIndex > items.lastIndex || items[leftIndex] > items[rightIndex]){
+                items.swap(leftIndex,parentIndex)
+                leftIndex
+            }else{
+                items.swap(rightIndex,parentIndex)
+               rightIndex
+            }
+
+            leftIndex = getLeftChildIndex(parentIndex)
+            rightIndex = getRightChildIndex(parentIndex)
+            println(items.size)
+            println(leftIndex)
+            println(rightIndex)
+        }
     }
 
-    private fun getParentIndex(index: Int): Int = (index - 1) / 2
-
-    private fun getLeftChildIndex(index: Int): Int = (index * 2) + 1
-
-    private fun getRightChildIndex(index: Int): Int = (index * 2) + 2
-
-    fun isEmpty(): Boolean = items.isEmpty()
-
+    private fun getParentIndex(index:Int) = (index - 1) / 2
+    private fun getLeftChildIndex(index:Int) = (index * 2) +  1
+    private fun getRightChildIndex(index: Int) = (index * 2) + 2
     private fun <T> MutableList<T>.swap(index1: Int, index2: Int) {
         val tmp = this[index1]
         this[index1] = this[index2]
@@ -233,6 +223,7 @@ private class Test {
             items[3] shouldBeEqualTo 3
             items[4] shouldBeEqualTo 2
             items.size shouldBeEqualTo 5
+
         }
     }
 

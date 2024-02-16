@@ -4,48 +4,104 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 fun generatePyramid(n: Int): List<String> {
-    return solution.s1(n)
+    return solution.s2(n)
+}
+
+fun main() {
+    solution.s3(4,0)
 }
 
 object solution {
     fun s1(n: Int): List<String> {
-        val list = mutableListOf<String>()
-        val numberOfColumn = (n * 2) - 1
 
+        val result = mutableListOf<String>()
+        val numOfColumn = (n * 2) - 1
         (0 until n).forEach { row ->
-            val numberOfHash = (row * 2) + 1
-            val numberOfSpace = numberOfColumn - numberOfHash
+            val numOfHash = (2 * row) + 1
+            val numOfSpace = numOfColumn - numOfHash
             var space = ""
-            repeat(numberOfSpace / 2) {
+            repeat(numOfSpace / 2) {
                 space += " "
             }
             var hash = ""
-            repeat(numberOfHash) {
+            repeat(numOfHash) {
                 hash += "#"
             }
-            list.add("$space$hash$space")
+            result.add("$space$hash$space")
         }
-        return list
+
+        return result
     }
 
     fun s2(n: Int): List<String> {
-        val list = mutableListOf<String>()
-        val midPoint = ((n * 2) - 1) / 2
-        val numberOfColumn = (n * 2) - 1
+        val result = mutableListOf<String>()
+        val numOfColumn = (2 * n) - 1
+        val midPoint = n - 1
+
         (0 until n).forEach { row ->
-            var hashString = ""
-            (0 until numberOfColumn).forEach { column ->
-                hashString += if (midPoint - row <= column && midPoint + row >= column) {
+            var hashLine = ""
+            (0 until numOfColumn).forEach { column ->
+                hashLine += if (midPoint - row <= column && midPoint + row >= column) {
                     "#"
                 } else {
                     " "
                 }
             }
-            list.add(hashString)
+            result.add(hashLine)
         }
-        return list
+        return result
     }
+
+
+    fun s3(n: Int, row: Int = 0) {
+        if (n == row) {
+            return
+        }
+        val midPoint = n - 1
+        val numOfColumn = (2 * n) - 1
+        var hashLine = ""
+        (0 until numOfColumn).forEach { column ->
+            hashLine += if (midPoint - row <= column && midPoint + row >= column) {
+                "#"
+            } else {
+                " "
+            }
+        }
+
+        println(hashLine)
+
+        return s3(n, row + 1)
+
+    }
+
+    fun generatePyramid(n: Int, row: Int = 0) {
+        val numColumns = 2 * n - 1 // Number of columns for the pyramid
+        val midpoint = n - 1 // Midpoint of the row
+
+        // handle complete all of the work
+        if (n == row) {
+            return
+        }
+
+        // handle the case where we are assembling string
+        var rowStr = ""
+
+        (0 until numColumns).forEach { column ->
+            rowStr += if (midpoint - row <= column && midpoint + row >= column) {
+                "#"
+            } else {
+                " "
+            }
+        }
+
+        println(rowStr)
+
+        // handle row
+        generatePyramid(n, row + 1)
+    }
+
 }
+
 
 private class Test {
 

@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test
 import kotlin.math.sign
 
 private fun isPermutationPalindrome(str: String): Boolean {
-    var freqMap = str.groupingBy { it }.eachCount()
-    val count = freqMap.filter { (it.value % 2) == 1 }.count()
-    return count <= 1
+    val groupCount = str.groupingBy { it }.eachCount()
+    val mapFilter = groupCount.filter { (it.value % 2) == 1 }
+    return mapFilter.size <= 1
 }
 
 private class Test {

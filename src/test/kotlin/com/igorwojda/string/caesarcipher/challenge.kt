@@ -4,14 +4,25 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun encodeCaesarCipher(str: String, shift: Int): String {
-    val alphabet = "abcdefghijklmnopqrstuvwxyz"
-    var encode = ""
-    str.forEach {
-        val indexAlpha = alphabet.indexOf(it)
-        val newIndex = (shift + indexAlpha) % alphabet.length
-        encode += alphabet[newIndex]
-    }
-    return encode
+    val aCode = 'a'.toInt()
+    val zCode = 'z'.toInt()
+    val realShift = shift % (zCode - aCode + 1)
+
+    return str.map {
+        var code = it.toInt()
+        code += realShift
+        //println("Code :$code ")
+
+        if(code > zCode){
+            if(code == 123){
+                val test =  aCode + (code % zCode) - 1
+                println("Code :${test.toChar()} ")
+            }
+            code =  aCode + (code % zCode) - 1
+
+        }
+        code.toChar()
+    }.joinToString("")
 }
 
 private class Test {
@@ -24,8 +35,8 @@ private class Test {
     fun `"abcdefghijklmnopqrstuvwxyz" shift 1 returns "bcdefghijklmnopqrstuvwxyza"`() {
         encodeCaesarCipher(
             "abcdefghijklmnopqrstuvwxyz",
-            1
-        ) shouldBeEqualTo "bcdefghijklmnopqrstuvwxyza"
+            3
+        ) shouldBeEqualTo "defghijklmnopqrstuvwxyzabc"
     }
 
     @Test

@@ -9,8 +9,8 @@ private fun decapitalizeConst(str: String): String? {
 
 object solution{
     fun s1(str: String):String{
-        val subsStringsList = str.split("_").map { it.toLowerCase().capitalize() }
-        return subsStringsList.joinToString("").decapitalize()
+       val subString = str.split("_").map { it.toLowerCase().capitalize() }
+        return subString.first().capitalize() + subString.drop(1).joinToString("")
     }
     fun s2(str: String):String?{
         val words = str.split("_").filter { it.isNotEmpty() }

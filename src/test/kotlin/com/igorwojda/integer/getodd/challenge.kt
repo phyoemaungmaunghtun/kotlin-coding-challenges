@@ -1,7 +1,5 @@
 package com.igorwojda.integer.getodd
 
-import com.igorwojda.integer.getodd.solution.s1
-import com.igorwojda.integer.getodd.solution.s2
 import com.igorwojda.integer.getodd.solution.s3
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
@@ -10,40 +8,37 @@ private fun filterOdd(list: List<Int>): List<Int> {
     return s3(list)
 }
 
-object solution{
-    fun s1(list: List<Int>):List<Int>{
+object solution {
+    fun s1(list: List<Int>): List<Int> {
         return list.filter { it % 2 == 1 }
     }
 
-    fun s2(list: List<Int>):List<Int>{
-        if(list.isEmpty()){
+    fun s2(list: List<Int>): List<Int> {
+        if (list.isEmpty()) {
             return list
         }
-        return if(list.first() % 2 == 1){
+        return if (list.first() % 2 == 1) {
             mutableListOf(list.first()) + s2(list.drop(1))
-        }else{
+        } else {
             s2(list.drop(1))
         }
     }
 
-    fun s3(list:List<Int>):List<Int>{
-
+    fun s3(list: List<Int>): List<Int> {
         val result = mutableListOf<Int>()
 
-        fun helper(list:List<Int>){
-            if(list.isEmpty()){
+        fun helper(list: List<Int>) {
+            if (list.isEmpty()) {
                 return
             }
-            if(list.first() % 2 == 1){
+            if (list.first() % 2 == 1) {
                 result.add(list.first())
             }
-
             helper(list.drop(1))
+
         }
         helper(list)
-
         return result
-
     }
 }
 

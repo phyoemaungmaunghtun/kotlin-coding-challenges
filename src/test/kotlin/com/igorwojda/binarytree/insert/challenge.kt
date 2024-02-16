@@ -3,35 +3,37 @@ package com.igorwojda.binarytree.insert
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
-private data class Node<E : Comparable<E>>(
-    var data: E,
+private data class Node< E :Comparable<E>>(
+    val data: E,
     var left: Node<E>? = null,
     var right: Node<E>? = null
-) {
-    fun insert(e: E) {
-        if(e < data){
-            if(left == null){
-                left = Node(e)
-            }else{
-                left?.insert(e)
-            }
-        }else{
-            if(right == null){
-                right = Node(e)
-            }else{
-                right?.insert(e)
-            }
-        }
+)
+{
+    fun insert(element: E) {
+        val newNode = Node(element)
+         if(element == data){
+             return
+         }else if(element < data){
+              if(left == null){
+                  left = newNode
+              }else{
+                  left?.insert(element)
+              }
+         }else if(element > data){
+             if(right == null){
+                 right = newNode
+             }else{
+                 right?.insert(element)
+             }
+         }
     }
 
-    fun contains(e: E): Boolean =
-        when{
-            e == data -> true
-            e < data -> left?.contains(e) ?: false
-            e > data -> right?.contains(e) ?: false
-            else -> false
-        }
-
+    fun contains(element: E): Boolean = when{
+        element == data -> true
+        element < data -> left?.contains(element) ?: false
+        element > data -> right?.contains(element) ?: false
+        else -> false
+    }
 }
 
 private class Test {

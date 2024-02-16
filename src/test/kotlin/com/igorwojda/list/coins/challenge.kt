@@ -3,17 +3,40 @@ package com.igorwojda.list.coins
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
+fun main() {
+   recursive(4, listOf(1,2,3), emptyList())
+}
+
+private fun recursive(amount: Int, coins: List<Int>, current: List<Int>) {
+
+    //exact case
+    if (amount == 0) {
+        println(current.joinToString(", "))
+        return
+    }
+
+    //impossible case
+    if (amount < 0) {
+        return
+    }
+
+    for (coin in coins) {
+        recursive(amount - coin, coins, current + coin)
+    }
+}
 
 private fun getCoins(amount: Int, coins: List<Int>): Int {
-    val waysOfCoin = IntArray(amount + 1)
-    waysOfCoin[0] = 1
+    val waysOfCoins = IntArray(amount + 1)
+    waysOfCoins[0] = 1
+
     for (coin in coins) {
-        for (higher in coin..amount) {
-            val remainAmount = higher - coin
-            waysOfCoin[higher] += waysOfCoin[remainAmount]
+        (coin..amount).forEach {
+            val remainingAmount = it - coin
+            waysOfCoins[it] += waysOfCoins[remainingAmount]
         }
     }
-    return waysOfCoin[amount]
+
+    return waysOfCoins[amount]
 }
 
 private class Test {

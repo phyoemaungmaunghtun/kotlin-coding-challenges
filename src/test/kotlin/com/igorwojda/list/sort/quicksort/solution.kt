@@ -1,7 +1,7 @@
 package com.igorwojda.list.sort.quicksort
 
 // Time complexity (Best): Ω(n log(n))
-// Time complexity (Average): Θ(l log(n))
+// Time complexity (Average): Θ(n log(n))
 // Time complexity (Worst): O(n^2)
 // Space complexity: O(log(n))
 private object Solution1 {

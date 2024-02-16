@@ -1,6 +1,12 @@
 package com.igorwojda.tree.binarysearchtree
 
 object Solution1 {
+    /**
+     *     • The main operations in this BST implementation (add and contains) have an average time complexity of O(logn) if the tree is balanced.
+     *     • However, their worst-case time complexity is O(n) if the tree is skewed. This is why balanced binary search trees (like AVL trees or Red-Black trees) are often preferred in practice, as they ensure that the tree remains balanced after every insert or delete operation, guaranteeing O(logn) time complexity for most operations.
+     *     • The space complexity for the operations in this implementation is constant, O(1). The space used by the tree itself grows linearly with the number of elements, i.e., O(n).
+     *
+     */
     private class BinarySearchTree<E : Comparable<E>> {
         var root: BinaryNode<E>? = null
             private set

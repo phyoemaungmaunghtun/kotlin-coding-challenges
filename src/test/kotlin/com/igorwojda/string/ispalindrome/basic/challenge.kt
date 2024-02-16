@@ -4,52 +4,49 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun isPalindrome(str: String): Boolean {
-    return solution.s1(str)
+    return solution.s4(str)
 }
 
 object solution {
     fun s1(str: String): Boolean {
-        return str == str.reversed()
+       return str == str.reversed()
     }
 
     fun s2(str: String): Boolean {
-        var leftIndex = 0
+       var leftIndex = 0
         var rightIndex = str.lastIndex
-        while (leftIndex <= rightIndex) {
+
+        while(leftIndex <= rightIndex){
             val leftValue = str[leftIndex]
             val rightValue = str[rightIndex]
-            if (leftValue != rightValue) {
+            if(leftValue != rightValue){
                 return false
             }
             leftIndex++
             rightIndex--
         }
         return true
-
     }
 
     fun s3(str: String): Boolean {
-        str.forEachIndexed{index, c ->
-            val rightIndex = str.lastIndex - index
-            if(c != str[rightIndex]){
+        str.forEachIndexed { index, char ->
+             val rightIndex = str.lastIndex - index
+            if(char != str[rightIndex])
                 return false
-            }
-
-            if(index > rightIndex){
+            if(index > rightIndex)
                 return true
-            }
         }
         return true
     }
 
     fun s4(str: String): Boolean {
         return if(str.isEmpty() || str.length == 1){
-            return true
+            true
         }else{
             if(str.first() == str.last()){
-                return s4(str.substring(1 until str.lastIndex))
+                 s4(str.substring(1 until str.lastIndex))
             }else{
-                return false
+                 false
             }
         }
     }

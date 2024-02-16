@@ -10,13 +10,13 @@ private fun capitalizeSentence(str: String): String {
 
 object solution {
     fun s1(str: String): String {
-        return str.split(" ").joinToString(" ") { it.capitalize() }
+        return str.split(" ").joinToString { it.capitalize() }
     }
 
     fun s2(str: String): String {
-           val words = mutableListOf<String>()
+        val words = mutableListOf<String>()
         str.split(" ").forEach {
-            words.add(it[0].toUpperCase()+it.substring(1))
+            words.add(it[0].toUpperCase() + it.substring(1))
         }
         return words.joinToString(" ")
     }

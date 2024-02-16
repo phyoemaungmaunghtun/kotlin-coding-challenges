@@ -32,9 +32,12 @@ private object Solution1 {
 
         fun remove(): E? {
             if (size == 0) return null
-
             val node = first
             first = node?.next
+
+            if (first == null) {  // If after removing, the queue is empty
+                last = null      // Set the last pointer to null as well
+            }
             size--
             return node?.data
         }

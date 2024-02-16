@@ -4,36 +4,42 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 fun generateSteps(n: Int): List<String> {
-    return solution.s2(n)
+    return solution.s1(n)
 }
 
+fun main(){
+    solution.s3(5)
+}
 object solution{
-    fun s1(n:Int) = List(n){"#".repeat(it + 1)+" ".repeat(n - it - 1)}
+    fun s1(n:Int) =  List(n){ "#".repeat(it + 1) + " ".repeat(n - it - 1) }
 
     fun s2(n:Int):List<String>{
-        val list = mutableListOf<String>()
-        (1.. n).forEach{row ->
-            var items = ""
-            (1.. n).forEach{column->
-                val char = if(column <= row) '#' else ' '
-                items += char
+        val result = mutableListOf<String>()
+        (0 until n).forEach { row ->
+            var char = ""
+            (0 until n).forEach { column ->
+                char += if(column <= row) "#" else " "
             }
-            list.add(items)
+            result.add(char)
         }
-        return list
+        return result
     }
 
     fun s3(n:Int,row:Int = 0, stair:String = ""){
-        if(n == row){
-            return
-        }
-        if(stair.length == n){
-            s3(n,row + 1)
+
+        if(n == row) {
             return
         }
 
-        val char = if(stair.length <= row) '#' else ' '
+        if(n == stair.length){
+            println(stair)
+            s3(n,row+ 1)
+            return
+        }
+        var char = ""
+        char = if(stair.length <= row) "#" else " "
         val currentStair = stair + char
+
         s3(n,row,currentStair)
     }
 }

@@ -9,8 +9,8 @@ private fun getAllPairs(n: Int): List<Pair<Int, Int>> {
 
 object solution{
     fun s1(n:Int):List<Pair<Int,Int>>{
-        val result = mutableListOf<Pair<Int,Int>>()
-        (0..n).forEach {i->
+       val result = mutableListOf<Pair<Int,Int>>()
+        (0..n).forEach { i->
             (0..n).forEach { j->
                 result.add(i to j)
             }
@@ -19,11 +19,11 @@ object solution{
     }
 
     fun s2(n: Int):List<Pair<Int,Int>>{
-        return (0..n).map { i ->
-            (0..n).map { j->
-                i to j
-            }
-        }.flatten()
+       return (0..n).map { i->
+           (0..n).map { j->
+               i to j
+           }
+       }.flatten()
     }
 }
 

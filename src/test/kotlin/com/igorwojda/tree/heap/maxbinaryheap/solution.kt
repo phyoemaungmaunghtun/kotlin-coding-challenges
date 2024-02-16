@@ -1,6 +1,11 @@
 package com.igorwojda.tree.heap.maxbinaryheap
 
 object Solution1 {
+    /**
+     * Time -> O(log n) for add and remove
+     * Space -> O(n) for binary heap map
+     * Time and Space -> O(1) for constant-time arithmetic  operation and don't use any extra space
+     */
     private class MaxBinaryHeap<E : Comparable<E>> {
         val items = mutableListOf<E>()
 
