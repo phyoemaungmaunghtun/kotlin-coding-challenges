@@ -4,30 +4,29 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 private fun quickSort(list: MutableList<Int>, left: Int = 0, right: Int = list.lastIndex): List<Number> {
-    return solution.s2(list)
+    return solution.s1(list)
 }
 
 object solution{
     fun s1(list: MutableList<Int>, left: Int = 0, right: Int = list.lastIndex):List<Number>{
-        fun pivot(list: MutableList<Int>, start: Int = 0, end: Int = list.lastIndex):Int{
-            val pivot = list[start]
+        fun findNextPivot(list: MutableList<Int>, start: Int = 0, end: Int = list.lastIndex):Int{
+            val pivotValue = list[start]
             var swapIndex = start
-            (start+1..end).forEach {
-                if(pivot > list[it]){
+            (start+1..list.lastIndex).forEach {
+                if(pivotValue > list[it]){
                     swapIndex++
-                    list.swap(it,swapIndex)
+                    list.swap(swapIndex,it)
                 }
             }
             list.swap(start,swapIndex)
             return swapIndex
         }
-
         if(left < right){
-            val pivot = pivot(list,left,right)
+            val pivot = findNextPivot(list,left,right)
+
             s1(list,left,pivot-1)
             s1(list,pivot + 1,right)
         }
-
         return list
     }
 
@@ -57,6 +56,7 @@ object solution{
 
 private fun <T> MutableList<T>.swap(index1: Int, index2: Int) {
     val tmp = this[index1]
+    println("swapIndex -> ${this[index2]} : it -> ${this[index1]}")
     this[index1] = this[index2]
     this[index2] = tmp
 }
@@ -83,16 +83,16 @@ private class Test {
     }
 
     @Test
-    fun `quick sort 5, 2, 1, 8, 4, 7, 6, 3`() {
-        quickSort(mutableListOf(5, 2, 1, 8, 4, 7, 6, 3)) shouldBeEqualTo listOf(
+    fun `quick sort 5, 2, 1, 8, 4, 7, 6, 9`() {
+        quickSort(mutableListOf(5, 2, 1, 8, 4, 7, 6, 9)) shouldBeEqualTo listOf(
             1,
             2,
-            3,
             4,
             5,
             6,
             7,
-            8
+            8,
+            9
         )
     }
 

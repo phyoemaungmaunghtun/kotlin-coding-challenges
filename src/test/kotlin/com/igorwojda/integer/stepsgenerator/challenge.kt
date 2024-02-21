@@ -4,25 +4,30 @@ import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 
 fun generateSteps(n: Int): List<String> {
-    return solution.s1(n)
+    return solution.s2(n)
 }
 
 fun main(){
-    solution.s3(5)
+    solution.s1(5)
 }
 object solution{
-    fun s1(n:Int) =  List(n){ "#".repeat(it + 1) + " ".repeat(n - it - 1) }
+    fun s1(n:Int) =  List(n){"#".repeat(it + 1)+" ".repeat(n-it-1)}
 
-    fun s2(n:Int):List<String>{
-        val result = mutableListOf<String>()
+    fun s2(n:Int):List<String> {
+        val list = mutableListOf<String>()
         (0 until n).forEach { row ->
-            var char = ""
-            (0 until n).forEach { column ->
-                char += if(column <= row) "#" else " "
+            var strHash = ""
+            (0 until n).forEach { col ->
+                strHash += if (col <= row) {
+                    "#"
+                } else {
+                    " "
+                }
             }
-            result.add(char)
+            list.add(strHash)
         }
-        return result
+        return list
+
     }
 
     fun s3(n:Int,row:Int = 0, stair:String = ""){

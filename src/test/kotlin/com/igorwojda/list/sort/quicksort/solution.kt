@@ -20,6 +20,7 @@ private object Solution1 {
                 }
             }
 
+
             list.swap(start, swapIndex)
 
             return swapIndex

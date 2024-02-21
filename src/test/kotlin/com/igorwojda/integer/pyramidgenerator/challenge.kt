@@ -8,7 +8,7 @@ fun generatePyramid(n: Int): List<String> {
 }
 
 fun main() {
-    solution.s3(4,0)
+    solution.s2(4)
 }
 
 object solution {
@@ -34,22 +34,21 @@ object solution {
     }
 
     fun s2(n: Int): List<String> {
-        val result = mutableListOf<String>()
-        val numOfColumn = (2 * n) - 1
-        val midPoint = n - 1
-
-        (0 until n).forEach { row ->
-            var hashLine = ""
-            (0 until numOfColumn).forEach { column ->
-                hashLine += if (midPoint - row <= column && midPoint + row >= column) {
+        val list = mutableListOf<String>()
+        val mid = ((n * 2) - 1) / 2
+        val numColumn = (n * 2) - 1
+        (0 until n).forEach { row->
+            var str = ""
+            (0 until numColumn).forEach { col ->
+                str += if(mid - row <= col && mid + row >= col){
                     "#"
-                } else {
+                }else{
                     " "
                 }
             }
-            result.add(hashLine)
+            list.add(str)
         }
-        return result
+        return list.toList()
     }
 
 
